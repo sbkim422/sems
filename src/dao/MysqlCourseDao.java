@@ -23,10 +23,10 @@ public class MysqlCourseDao implements CourseDao {
 		try {
 			con = dbConnectionPool.getConnection();
 			stmt = con.prepareStatement(
-					"insert SE_COURS(TITLE, DEST, HOUR) values(?, ?, ?)");
+					"insert SE_COURS(TITLE, DEST, HOURS) values(?, ?, ?)");
 			stmt.setString(1, course.getTitle());
 			stmt.setString(2, course.getDescription());
-			stmt.setInt(3, Integer.parseInt(course.getDescription()));
+			stmt.setInt(3, course.getHour());
 			stmt.executeUpdate();
 		} catch (Throwable e) {
 			throw e;
@@ -44,8 +44,8 @@ public class MysqlCourseDao implements CourseDao {
 		try {
 			con = dbConnectionPool.getConnection();
 			stmt = con.prepareStatement(
-					"select SNO, TITLE from SE_COURS"
-							+ " order by UNO desc"
+					"select CNO, TITLE from SE_COURS"
+							+ " order by CNO desc"
 							+ " limit ?, ?");
 			stmt.setInt(1, (pageNo - 1) * pageSize);
 			stmt.setInt(2, pageSize);
@@ -54,7 +54,7 @@ public class MysqlCourseDao implements CourseDao {
 			ArrayList<CourseVo> list = new ArrayList<CourseVo>();
 			while(rs.next()) {
 				list.add(new CourseVo()
-													.setNo(rs.getInt("UNO"))
+													.setNo(rs.getInt("CNO"))
 													.setTitle(rs.getString("TITLE")));
 			}
 			return list;
@@ -74,17 +74,17 @@ public class MysqlCourseDao implements CourseDao {
 		try {
 			con = dbConnectionPool.getConnection();
 			stmt = con.prepareStatement(
-					"select UNO, TITLE, DEST, HOUR from SE_COURS"
-							+ " where UNO=?");
+					"select CNO, TITLE, DEST, HOURS from SE_COURS"
+							+ " where CNO=?");
 			stmt.setInt(1, no);
 			rs = stmt.executeQuery();
 			
 			if (rs.next()) {
 				return new CourseVo()
-										.setNo(rs.getInt("UNO"))
+										.setNo(rs.getInt("CNO"))
 										.setTitle(rs.getString("TITLE"))
 										.setDescription(rs.getString("DEST"))
-										.setHour(rs.getInt("HOUR"));
+										.setHour(rs.getInt("HOURS"));
 			} else {
 				throw new Exception("해당 과목을 찾을 수 없습니다.");
 			}
@@ -106,8 +106,8 @@ public class MysqlCourseDao implements CourseDao {
 					"update SE_COURS set"
 							+ " TITLE=?" 
 							+ ", DEST=?"
-							+ ", HOUR=?"
-							+ " where UNO=?");
+							+ ", HOURS=?"
+							+ " where CNO=?");
 			stmt.setString(1, course.getTitle());
 			stmt.setString(2, course.getDescription());
 			stmt.setInt(3, course.getHour());
@@ -127,7 +127,7 @@ public class MysqlCourseDao implements CourseDao {
 		try {
 			con = dbConnectionPool.getConnection();
 			stmt = con.prepareStatement(
-					"delete from SE_COURS where UNO=?"	);
+					"delete from SE_COURS where CNO=?"	);
 			stmt.setInt(1, no);
 			stmt.executeUpdate();
 		} catch (Throwable e) {

@@ -27,10 +27,10 @@ public class SubjectInsertServlet extends HttpServlet {
 		
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		out.println("<html><head><title>과목등록</title></head><body>");
+		out.println("<html><head><title>교육과정등록</title></head><body>");
 		
 		try {
-			out.println("<h1>과목 등록 결과</h1>");
+			out.println("<h1>교육과정 등록 결과</h1>");
 			
 			CourseDao dao = (CourseDao)this.getServletContext()
 					.getAttribute("courseDao");

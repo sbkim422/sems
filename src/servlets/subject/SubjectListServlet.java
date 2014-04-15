@@ -28,7 +28,7 @@ public class SubjectListServlet extends HttpServlet {
 			out.println("<h1>과목 목록</h1>");
 			
 			CourseDao dao = (CourseDao)this.getServletContext()
-																							.getAttribute("subjectDao");
+																							.getAttribute("courseDao");
 			
 			int pageNo = Integer.parseInt(request.getParameter("pageNo")); 
 			int pageSize = Integer.parseInt(request.getParameter("pageSize")); 
@@ -41,10 +41,10 @@ public class SubjectListServlet extends HttpServlet {
 			out.println("	<th>과정명</th>");
 			out.println("</tr>");
 			
-			for (CourseVo subject : list) {
+			for (CourseVo course : list) {
 				out.println("<tr>");
-				out.println("	<td>" + subject.getNo() + "</td>");
-				out.println("	<td>" + subject.getTitle() + "</td>");
+				out.println("	<td>" + course.getNo() + "</td>");
+				out.println("	<td>" + course.getTitle() + "</td>");
 				out.println("</tr>");
 			}
 			out.println("</table>");

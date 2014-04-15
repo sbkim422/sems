@@ -37,14 +37,4 @@ public class CourseVo {
 		return this;
 	}
 	
-	
-
 }
-
-
-
-
-
-
-
-
