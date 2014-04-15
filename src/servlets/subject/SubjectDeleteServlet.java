@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.SubjectDao;
+import dao.CourseDao;
 
-@WebServlet("/subject/delete.bit")
+@WebServlet("/course/delete.bit")
 @SuppressWarnings("serial")
 public class SubjectDeleteServlet extends HttpServlet {
 	@Override
@@ -27,8 +27,8 @@ public class SubjectDeleteServlet extends HttpServlet {
 		try {
 			out.println("<h1>과목 삭제 결과</h1>");
 			
-			SubjectDao dao = (SubjectDao)this.getServletContext()
-					.getAttribute("subjectDao");
+			CourseDao dao = (CourseDao)this.getServletContext()
+					.getAttribute("courseDao");
 			
 			int no = Integer.parseInt(request.getParameter("no"));
 			

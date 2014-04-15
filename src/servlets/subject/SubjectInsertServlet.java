@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import vo.SubjectVo;
-import dao.SubjectDao;
+import vo.CourseVo;
+import dao.CourseDao;
 
-@WebServlet("/subject/insert.bit")
+@WebServlet("/course/insert.bit")
 @SuppressWarnings("serial")
 public class SubjectInsertServlet extends HttpServlet {
 	@Override
@@ -32,12 +32,13 @@ public class SubjectInsertServlet extends HttpServlet {
 		try {
 			out.println("<h1>과목 등록 결과</h1>");
 			
-			SubjectDao dao = (SubjectDao)this.getServletContext()
-					.getAttribute("subjectDao");
+			CourseDao dao = (CourseDao)this.getServletContext()
+					.getAttribute("courseDao");
 			
-			SubjectVo vo = new SubjectVo();
+			CourseVo vo = new CourseVo();
 			vo.setTitle(request.getParameter("title"));
 			vo.setDescription(request.getParameter("description"));
+			vo.setHour(Integer.parseInt(request.getParameter("hour")));
 			
 			dao.insert(vo);
 			

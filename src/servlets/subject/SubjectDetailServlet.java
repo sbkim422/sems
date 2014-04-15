@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import vo.SubjectVo;
-import dao.SubjectDao;
+import vo.CourseVo;
+import dao.CourseDao;
 
-@WebServlet("/subject/detail.bit")
+@WebServlet("/course/detail.bit")
 @SuppressWarnings("serial")
 public class SubjectDetailServlet extends HttpServlet {
 	@Override
@@ -22,33 +22,38 @@ public class SubjectDetailServlet extends HttpServlet {
 		
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		out.println("<html><head><title>과목상세정보</title></head><body>");
+		out.println("<html><head><title>교육과정 상세정보</title></head><body>");
 		try {
-			out.println("<h1>과목 상세정보</h1>");
+			out.println("<h1>교육과정 상세정보</h1>");
 			
-			SubjectDao dao = (SubjectDao)this.getServletContext()
-					.getAttribute("subjectDao");
+			CourseDao dao = (CourseDao)this.getServletContext()
+					.getAttribute("courseDao");
 			
 			int no = Integer.parseInt(request.getParameter("no")); 
 			
-			SubjectVo subject = dao.detail(no);
+			CourseVo subject = dao.detail(no);
 			
 			out.println("<table border='1'>");
 			out.println("<tr>");
-			out.println("	<th>번호</th>");
+			out.println("	<th>교육과정번호</th>");
 			out.println("	<td>" + subject.getNo() + "</td>");
 			out.println("</tr>");
 			
 			out.println("<tr>");
-			out.println("	<th>과목명</th>");
+			out.println("	<th>과정명</th>");
 			out.println("	<td>" + subject.getTitle() + "</td>");
 			out.println("</tr>");
 			
 			out.println("<tr>");
-			out.println("	<th>내용</th>");
+			out.println("	<th>설명</th>");
 			out.println(" <td><textarea rows='5' cols='60'>"
 					+ subject.getDescription()
 					+ "</textarea></td>");
+			out.println("</tr>");
+			
+			out.println("<tr>");
+			out.println("	<th>교육시간</th>");
+			out.println("	<td>" + subject.getHour() + "</td>");
 			out.println("</tr>");
 			
 			out.println("</table>");

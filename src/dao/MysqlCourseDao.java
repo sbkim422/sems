@@ -7,25 +7,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import util.DBConnectionPool;
-import vo.SubjectVo;
+import vo.CourseVo;
 
 // SubjectVo의 setter/getter 사용
-public class MysqlCourseDao implements SubjectDao {
+public class MysqlCourseDao implements CourseDao {
 	DBConnectionPool dbConnectionPool;
 
 	public void setDBConnectionPool(DBConnectionPool dbConnectionPool) {
 		this.dbConnectionPool = dbConnectionPool;
 	}
 	
-	public void insert(SubjectVo subject) throws Throwable {
+	public void insert(CourseVo course) throws Throwable {
 		Connection con = null;
 		PreparedStatement stmt = null;
 		try {
 			con = dbConnectionPool.getConnection();
 			stmt = con.prepareStatement(
-					"insert SE_SUBJS(TITLE, DEST) values(?, ?)");
-			stmt.setString(1, subject.getTitle());
-			stmt.setString(2, subject.getDescription());
+					"insert SE_COURS(TITLE, DEST, HOUR) values(?, ?, ?)");
+			stmt.setString(1, course.getTitle());
+			stmt.setString(2, course.getDescription());
+			stmt.setInt(3, Integer.parseInt(course.getDescription()));
 			stmt.executeUpdate();
 		} catch (Throwable e) {
 			throw e;
@@ -35,7 +36,7 @@ public class MysqlCourseDao implements SubjectDao {
 		}
 	}
 	
-	public List<SubjectVo> list(int pageNo, int pageSize) 
+	public List<CourseVo> list(int pageNo, int pageSize) 
 			throws Throwable {
 		Connection con = null;
 		PreparedStatement stmt = null;
@@ -43,17 +44,17 @@ public class MysqlCourseDao implements SubjectDao {
 		try {
 			con = dbConnectionPool.getConnection();
 			stmt = con.prepareStatement(
-					"select SNO, TITLE from SE_SUBJS"
-							+ " order by SNO desc"
+					"select SNO, TITLE from SE_COURS"
+							+ " order by UNO desc"
 							+ " limit ?, ?");
 			stmt.setInt(1, (pageNo - 1) * pageSize);
 			stmt.setInt(2, pageSize);
 			rs = stmt.executeQuery();
 			
-			ArrayList<SubjectVo> list = new ArrayList<SubjectVo>();
+			ArrayList<CourseVo> list = new ArrayList<CourseVo>();
 			while(rs.next()) {
-				list.add(new SubjectVo()
-													.setNo(rs.getInt("SNO"))
+				list.add(new CourseVo()
+													.setNo(rs.getInt("UNO"))
 													.setTitle(rs.getString("TITLE")));
 			}
 			return list;
@@ -66,23 +67,24 @@ public class MysqlCourseDao implements SubjectDao {
 		}
 	}
 	
-	public SubjectVo detail(int no) throws Throwable {
+	public CourseVo detail(int no) throws Throwable {
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
 			con = dbConnectionPool.getConnection();
 			stmt = con.prepareStatement(
-					"select SNO, TITLE, DEST from SE_SUBJS"
-							+ " where SNO=?");
+					"select UNO, TITLE, DEST, HOUR from SE_COURS"
+							+ " where UNO=?");
 			stmt.setInt(1, no);
 			rs = stmt.executeQuery();
 			
 			if (rs.next()) {
-				return new SubjectVo()
-										.setNo(rs.getInt("SNO"))
+				return new CourseVo()
+										.setNo(rs.getInt("UNO"))
 										.setTitle(rs.getString("TITLE"))
-										.setDescription(rs.getString("DEST"));
+										.setDescription(rs.getString("DEST"))
+										.setHour(rs.getInt("HOUR"));
 			} else {
 				throw new Exception("해당 과목을 찾을 수 없습니다.");
 			}
@@ -95,19 +97,21 @@ public class MysqlCourseDao implements SubjectDao {
 		}
 	}
 	
-	public void update(SubjectVo subject) throws Throwable {
+	public void update(CourseVo course) throws Throwable {
 		Connection con = null;
 		PreparedStatement stmt = null;
 		try {
 			con = dbConnectionPool.getConnection();
 			stmt = con.prepareStatement(
-					"update SE_SUBJS set"
+					"update SE_COURS set"
 							+ " TITLE=?" 
 							+ ", DEST=?"
-							+ " where SNO=?");
-			stmt.setString(1, subject.getTitle());
-			stmt.setString(2, subject.getDescription());
-			stmt.setInt(3, subject.getNo());
+							+ ", HOUR=?"
+							+ " where UNO=?");
+			stmt.setString(1, course.getTitle());
+			stmt.setString(2, course.getDescription());
+			stmt.setInt(3, course.getHour());
+			stmt.setInt(4, course.getNo());
 			stmt.executeUpdate();
 		} catch (Throwable e) {
 			throw e;
@@ -123,7 +127,7 @@ public class MysqlCourseDao implements SubjectDao {
 		try {
 			con = dbConnectionPool.getConnection();
 			stmt = con.prepareStatement(
-					"delete from SE_SUBJS where SNO=?"	);
+					"delete from SE_COURS where UNO=?"	);
 			stmt.setInt(1, no);
 			stmt.executeUpdate();
 		} catch (Throwable e) {

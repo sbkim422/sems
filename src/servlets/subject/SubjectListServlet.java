@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import vo.SubjectVo;
-import dao.SubjectDao;
+import vo.CourseVo;
+import dao.CourseDao;
 
-@WebServlet("/subject/list.bit")
+@WebServlet("/course/list.bit")
 @SuppressWarnings("serial")
 public class SubjectListServlet extends HttpServlet {
 	@Override
@@ -27,21 +27,21 @@ public class SubjectListServlet extends HttpServlet {
 		try {
 			out.println("<h1>과목 목록</h1>");
 			
-			SubjectDao dao = (SubjectDao)this.getServletContext()
+			CourseDao dao = (CourseDao)this.getServletContext()
 																							.getAttribute("subjectDao");
 			
 			int pageNo = Integer.parseInt(request.getParameter("pageNo")); 
 			int pageSize = Integer.parseInt(request.getParameter("pageSize")); 
 			
-			List<SubjectVo> list = dao.list(pageNo, pageSize);
+			List<CourseVo> list = dao.list(pageNo, pageSize);
 			
 			out.println("<table border='1'>");
 			out.println("<tr>");
-			out.println("	<th>번호</th>");
-			out.println("	<th>과목명</th>");
+			out.println("	<th>교육과정번호</th>");
+			out.println("	<th>과정명</th>");
 			out.println("</tr>");
 			
-			for (SubjectVo subject : list) {
+			for (CourseVo subject : list) {
 				out.println("<tr>");
 				out.println("	<td>" + subject.getNo() + "</td>");
 				out.println("	<td>" + subject.getTitle() + "</td>");
