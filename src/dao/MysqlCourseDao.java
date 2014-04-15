@@ -1,4 +1,4 @@
-package dao.copy;
+package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,7 +10,7 @@ import util.DBConnectionPool;
 import vo.SubjectVo;
 
 // SubjectVo의 setter/getter 사용
-public class MysqlSubjectDao implements SubjectDao {
+public class MysqlCourseDao implements SubjectDao {
 	DBConnectionPool dbConnectionPool;
 
 	public void setDBConnectionPool(DBConnectionPool dbConnectionPool) {
