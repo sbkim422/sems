@@ -5,50 +5,60 @@
 <title>학생입력폼</title>
 <style>
 body {
-  background-color: #ffcccc;
+	background-color: #ffcccc;
 }
 
 div {
-  text-align: left;
+	text-align: left;
 }
+
+.add {
+ background-color:lightblue;
+}
+.can {
+background-color: orange;
+
+}
+
 </style>
 </head>
 <body>
-  <h1>학생정보입력!</h1>
-  <form action='insert.bit' method="post">
-    이름:
-    <div>
-      <input type="text" name="name">
-    </div>
-    <br> 이메일 :
-    <div>
-      <input type="text" name="email">
-    </div>
-    <br> 비밀번호 :
-    <div>
-      <input type="password" name="passward">
-    </div>
-    <br> 전화번호 :
-    <div>
-      <input type="text" name="tel">
-    </div>
-    <br> 팩스번호 :
-    <div>
-      <input type="text" name="fax">
-    </div>
-    <br> 우편번호:
-    <div>
-      <input type="text" name="postno">
-    </div>
-    <br> 학생주소 :
-    <div>
-      <input type="text" name="address">
-    </div>
-    <br> <input type="submit" value="등록"> <input type="reset"
-      value="취소">
+	<h1>학생정보입력!</h1>
+	<form action='insert.bit' method="post">
+		이름:
+		<div>
+			<input type="text" name="name">
+		</div>
+		<br> 이메일 :
+		<div>
+			<input type="email" name="email">
+		</div>
+		<br> 비밀번호 :
+		<div>
+			<input type="password" name="passward">
+		</div>
+		<br> 전화번호 :
+		<div>
+			<input type="text" name="tel">
+		</div>
+		<br> 팩스번호 :
+		<div>
+			<input type="text" name="fax">
+		</div>
+		<br> 우편번호:
+		<div>
+			<input type="text" name="postno">
+		</div>
+		<br> 학생주소 :
+		<div>
+			<input type="text" name="address">
+		</div>
+		<br> 
+		<input class="add" type="submit" value="등록"> 
+		<input class="can" type="reset" value="취소 ">
 
 
 
-  </form>
+	</form>
 </body>
 </html>
