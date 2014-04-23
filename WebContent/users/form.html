@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>사용자입력폼</title>
+<link rel="Stylesheet" href="form.css" type="text/css" />
+</head>
+<body>
+<div>
+  <div id=main>
+    <h1>사용자 입력</h1>
+		<form action="insert.bit" method="post">
+		사용자명 <input type="text" name="no"><br>
+		이메일 <input type="text" name="email"><br>
+		암호 <input type="text" name="password"><br>
+		이름 <input type="text" name="name"><br>
+		전화번호 <input type="text" name="tel"><br>
+		팩스번호 <input type="text" name="fax"><br>
+		우편번호 <input type="text" name="postno"><br>
+		주소 <input type="text" name="address"><br>
+		포토경로 <input type="text" name="photpath"><br>
+		<br>
+		<input type="submit" value="등록">
+		<input type="reset" value="취소">
+		</form>
+		<br>
+		<form action="upload.bit" method="post"
+		  enctype="multipart/form-data">
+		포토업로드: <input type="file" name="file1">
+		<input type="submit" value="파일업로드"><br> 
+		</form>
+  </div>
+</div>
+</body>
+</html>
